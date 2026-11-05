@@ -1,9 +1,8 @@
-# SynAccel-llm-redteam-sandbox
-SynAccel Mirage is a local sandbox for exercising heuristic AI safety checks against a simulated language model. It is intended for defensive learning and controlled evaluation; it does not connect to a real LLM by default.
+# SynAccel LLM Red-Team Sandbox
+
+A local research sandbox for exercising heuristic AI-safety checks against a simulated language model. It is intended for defensive learning and controlled evaluation; it does not connect to a hosted LLM by default.
 
 ## Overview
-
-SynAccel Mirage is a local research and learning sandbox for exercising simple, heuristic message-risk checks against a simulated language model. It does not connect to a hosted model by default.
 
 For each message, the sandbox records a 0–100 risk score, the matched signals, the selected mode, and the response. Modes are selected by score:
 
@@ -70,14 +69,15 @@ python -m src.defense.evaluation --fail-on-mismatch
 
 The evaluator always uses the local simulated model. Its small hand-labeled corpus is useful for regression checks, not a statistically meaningful security assessment.
 
-## SynAccel Ecosystem
+## Related SynAccel research
 
-These are related repositories, not active runtime integrations:
+These repositories are related projects, not active runtime integrations:
 
-- [SynAccel-Sentinel](https://github.com/SynAccel/SynAccel-Sentinel) — Cloud posture management and IAM enforcement.
-- [SynAccel-Forge](https://github.com/SynAccel/SynAccel-Forge) — Hardened baseline templates and synthetic attack testbeds.
-- [SynAccel-Bridge](https://github.com/SynAccel/SynAccel-Bridge) — Telemetry routing and event transformation.
-- [SynAccel-ShieldSet](https://github.com/SynAccel/SynAccel-ShieldSet) — Dataset vulnerability auditing and k-NN consensus analysis.
-- [SynAccel-Mirage_v2](https://github.com/SynAccel/SynAccel-Mirage_v2) — Deception and decoy telemetry generation.
+- [SynAccel-Sentinel](https://github.com/SynAccel/SynAccel-Sentinel) — Read-only AWS IAM and S3 exposure checks with local risk prioritization.
+- [SynAccel-Forge](https://github.com/SynAccel/SynAccel-Forge) — R&D workspace for documented experiments, prototypes, and reusable tools.
+- [SynAccel-Bridge](https://github.com/SynAccel/SynAccel-Bridge) — Prototype for authenticated event intake, validation, correlation, and simulated responses.
+- [SynAccel-Mirage_v2](https://github.com/SynAccel/SynAccel-Mirage_v2) — Local decoy service that returns configured banners and records interaction metadata.
+- [SynAccel-ShieldSet](https://github.com/SynAccel/SynAccel-ShieldSet) — Dataset auditing research using k-nearest-neighbor label consensus.
+- [adversarial-autonomous-triage](https://github.com/SynAccel/adversarial-autonomous-triage) — Research lab on adversarial robustness in AI-assisted security-alert triage.
 
-A future integration could share Forge test cases, pass evaluation datasets to ShieldSet, or export audit records to Bridge. Runtime connections should wait until the projects agree on interfaces and an event schema.
+Future integration ideas should wait until projects define compatible interfaces and an event schema. For the full portfolio, see the [SynAccel organization profile](https://github.com/SynAccel/.github/blob/main/profile/README.md).
