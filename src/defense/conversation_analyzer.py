@@ -1,47 +1,37 @@
+import unicodedata
+
+
 def analyze_message(message: str) -> int:
     """
     Returns a risk score from 0–100 based on content.
     """
+    return analyze_message_details(message)["risk_score"]
 
-    msg = message.lower()
+
+def analyze_message_details(message: str) -> dict:
+    """Return a bounded risk score and the heuristic signals that produced it."""
+    msg = unicodedata.normalize("NFKC", message).casefold()
+    signals = []
     risk = 0
 
-    # --- STRICT triggers (SynAccel Doctrine) ---
+    checks = (
+        (80, "critical: rule override attempt", ("ignore all rules", "ignore instructions", "break the rules", "override rules", "jailbreak")),
+        (80, "critical: internal instruction disclosure", ("system prompt", "internal instructions")),
+        (80, "critical: coercive pressure", ("i'll lose my job", "i will lose my job", "i will lose everything", "please help me")),
+        (30, "elevated: persona manipulation", ("pretend", "role-play")),
+        (25, "elevated: authority pressure", ("my boss said", "a manager told me")),
+        (20, "elevated: urgency pressure", ("urgent", "immediately")),
+    )
 
-    # A. Rule override attempts
-    if "ignore all rules" in msg or "break the rules" in msg:
-        risk += 80
+    for points, signal, phrases in checks:
+        if any(phrase in msg for phrase in phrases):
+            risk += points
+            signals.append(signal)
 
-    # B. System prompt / internal instruction extraction
-    if "system prompt" in msg or "internal instructions" in msg:
-        risk += 80
-
-    # E. Emotional manipulation
-    if "i'll lose my job" in msg or "please help me" in msg or "i will lose everything" in msg:
-        risk += 80
-
-
-    # --- MEDIUM triggers ---
-
-    # Role-play or persona manipulation
-    if "pretend" in msg or "role-play" in msg:
-        risk += 30
-
-    # Authority pressure
-    if "my boss said" in msg or "a manager told me" in msg:
-        risk += 25
-
-    # Urgency pressure
-    if "urgent" in msg or "immediately" in msg:
-        risk += 20
-
-
-    # --- LOWERS risk (safe / normal conversation) ---
-
-    if "how are you" in msg or "thank you" in msg or "hello" in msg:
+    if any(phrase in msg for phrase in ("how are you", "thank you", "hello")):
         risk -= 10
 
-    return max(0, min(risk, 100))
+    return {"risk_score": max(0, min(risk, 100)), "signals": signals}
 
 
 
