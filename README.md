@@ -1,23 +1,6 @@
 # SynAccel-llm-redteam-sandbox
 SynAccel Mirage is a local sandbox for exercising heuristic AI safety checks against a simulated language model. It is intended for defensive learning and controlled evaluation; it does not connect to a real LLM by default.
 
-## SynAccel Ecosystem
-
-Related projects across defensive engineering and adversarial research:
-
-### Defensive Engineering
-
-- [SynAccel-Sentinel](https://github.com/SynAccel/SynAccel-Sentinel) — Cloud posture management and IAM enforcement.
-- [SynAccel-Forge](https://github.com/SynAccel/SynAccel-Forge) — Hardened baseline templates and synthetic attack testbeds.
-- [SynAccel-Bridge](https://github.com/SynAccel/SynAccel-Bridge) — Telemetry routing and event transformation.
-
-### Adversarial Research
-
-- [SynAccel-ShieldSet](https://github.com/SynAccel/SynAccel-ShieldSet) — Dataset vulnerability auditing and k-NN consensus analysis.
-- [SynAccel-Mirage_v2](https://github.com/SynAccel/SynAccel-Mirage_v2) — Deception and decoy telemetry generation.
-
-These are repository references, not active integrations. A future connection could use Forge for test inputs, ShieldSet for evaluation datasets, and Bridge for routing this sandbox's audit records; Sentinel and Mirage_v2 could consume resulting security events where their interfaces support it. Any runtime integration should agree on a shared event schema and API first.
-
 ## Overview
 
 SynAccel Mirage is a local research and learning sandbox for exercising simple, heuristic message-risk checks against a simulated language model. It does not connect to a hosted model by default.
